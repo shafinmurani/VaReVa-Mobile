@@ -31,9 +31,6 @@ class _WrapperWidgetState extends State<WrapperWidget> {
       collection
           .doc(docID)
           .set({"Name": name, "Email address": email, "Purchased": []});
-    } else {
-      // var data = await collection.doc(docID).get();
-      // print(data['Purchased']);
     }
   }
 

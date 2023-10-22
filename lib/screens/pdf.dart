@@ -4,25 +4,23 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:internet_file/internet_file.dart';
 
 class PdfWidget extends StatefulWidget {
-  const PdfWidget({super.key});
+  final String path;
+  const PdfWidget({super.key, required this.path});
 
   @override
   State<PdfWidget> createState() => _PdfWidgetState();
 }
 
 class _PdfWidgetState extends State<PdfWidget> {
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-
-  Future<void> downloadURLExample() async {
+  Future<void> downloadURLExample(String path) async {
     String downloadURL = await firebase_storage.FirebaseStorage.instance
-        .ref('/second_vol.pdf')
+        .ref(path)
         .getDownloadURL();
 
     final pdfPinchController = PdfControllerPinch(
         document: PdfDocument.openData(InternetFile.get(downloadURL)));
     // ignore: use_build_context_synchronously
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => ViewPDF(pdfPinchController),
@@ -31,13 +29,14 @@ class _PdfWidgetState extends State<PdfWidget> {
   }
 
   @override
+  void initState() {
+    downloadURLExample(widget.path);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: downloadURLExample,
-        child: const Text("Open Pdf"),
-      ),
-    );
+    return const Center(child: CircularProgressIndicator.adaptive());
   }
 }
 

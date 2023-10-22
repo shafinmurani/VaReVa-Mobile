@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/screens/account.dart';
-import 'package:vartarevarta_magazine/screens/pdf.dart';
+import 'package:vartarevarta_magazine/screens/home_screen.dart';
 
 class NavigatonBarWidget extends StatefulWidget {
   const NavigatonBarWidget({super.key});
@@ -15,7 +15,7 @@ class _BottomNavigationBarExampleState extends State<NavigatonBarWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    PdfWidget(),
+    HomeScreen(),
     Text(
       'Free Read page',
       style: optionStyle,
