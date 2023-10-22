@@ -7,10 +7,6 @@ import 'package:vartarevarta_magazine/services/wrapper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  // final auth = FirebaseAuth.instanceFor(app: Firebase.app());
-  // await auth.setPersistence(Persistence.LOCAL);
-
   runApp(const MyApp());
 }
 
