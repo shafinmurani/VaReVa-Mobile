@@ -1,6 +1,7 @@
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:vartarevarta_magazine/screens/pdf.dart';
+import 'package:vartarevarta_magazine/screens/payment/check_purchased_status.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,8 +13,9 @@ class HomeScreen extends StatefulWidget {
 class Books {
   final String name;
   final String path;
+  final int price;
 
-  Books(this.name, this.path);
+  Books(this.name, this.path, this.price);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -22,9 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final storageRef = FirebaseStorage.instance.ref().child('');
     storageRef.listAll().then((result) {
       for (var item in result.items) {
-        print(item.name);
         setState(() {
-          array.add(Books(item.name, item.fullPath));
+          array.add(Books(item.name, item.fullPath, 20));
         });
       }
     });
@@ -53,11 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PdfWidget(path: array[index].path),
+                    builder: (context) => CheckPurchased(
+                        productId: array[index].name, path: array[index].path),
                   ),
                 );
               },
               title: Text(array[index].name),
+              trailing: const Text(
+                "INR 22.50",
+                style: TextStyle(fontSize: 14),
+              ),
             );
           },
         ),

@@ -42,6 +42,7 @@ dependencies:
   cloud_firestore:
   flutter_document_picker:
   internet_file:
+  razorpay_flutter:
 
 dev_dependencies:
   flutter_test:
