@@ -43,6 +43,10 @@ dependencies:
   flutter_document_picker:
   internet_file:
   razorpay_flutter:
+  advance_pdf_viewer:
+    git:
+      url: https://github.com/lohanidamodar/pdf_viewer.git
+      ref: 4e5d96be29de515f1081c0b6897741b8dca84722
 
 dev_dependencies:
   flutter_test:
@@ -68,8 +72,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/team_image/
     # - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

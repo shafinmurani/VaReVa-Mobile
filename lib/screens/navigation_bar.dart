@@ -12,14 +12,9 @@ class NavigatonBarWidget extends StatefulWidget {
 
 class _BottomNavigationBarExampleState extends State<NavigatonBarWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Text(
-      'Free Read page',
-      style: optionStyle,
-    ),
     AccountWidget()
   ];
 
@@ -40,10 +35,6 @@ class _BottomNavigationBarExampleState extends State<NavigatonBarWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book_rounded),
-            label: 'Free Read',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
