@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:pdfx/pdfx.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:vartarevarta_magazine/components/colors.dart';
 // import 'package:internet_file/internet_file.dart';
 
 class PdfWidget extends StatefulWidget {
@@ -96,8 +97,15 @@ class _ViewPDFState extends State<ViewPDF> {
       appBar: AppBar(),
       body: PDFViewer(
         document: widget.document,
+        panLimit: 0,
+        indicatorText: secondary,
+        indicatorBackground: primary,
         controller: PageController(initialPage: widget.pageNum),
         lazyLoad: false,
+        pickerButtonColor: primary,
+        pickerIconColor: Colors.brown[800],
+        indicatorPosition: IndicatorPosition.bottomRight,
+        showPicker: false,
         onPageChanged: (value) => updatePage(value, widget.path),
       ),
     );

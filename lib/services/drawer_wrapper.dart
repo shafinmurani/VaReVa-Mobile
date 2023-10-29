@@ -18,8 +18,7 @@ class _DrawerWrapperState extends State<DrawerWrapper> {
           color: appBar,
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: NetworkImage(
-                'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg'),
+            image: AssetImage('assets/drawer_background.jpg'),
           ),
         ),
         accountName: Text(
