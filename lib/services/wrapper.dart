@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vartarevarta_magazine/screens/home_screen.dart';
 import 'package:vartarevarta_magazine/screens/login.dart';
-import 'package:vartarevarta_magazine/screens/navigation_bar.dart';
 
 class WrapperWidget extends StatefulWidget {
   const WrapperWidget({super.key});
@@ -42,7 +42,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
           FirebaseAuth.instance.currentUser?.uid,
           FirebaseAuth.instance.currentUser?.displayName,
           FirebaseAuth.instance.currentUser?.email);
-      return const NavigatonBarWidget();
+      return const HomeScreen();
 
       // return Placeholder();
     } else {

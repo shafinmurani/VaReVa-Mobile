@@ -33,6 +33,8 @@ class OurTeamWidget extends StatelessWidget {
           image: "assets/team_image/nilesh_murani.jpeg",
           subtitle: "Editor",
           background: cardColot),
+    ];
+    List<Widget> eMagazineArray = [
       const CardWidget(
           name: "Shafin Murani",
           image: "assets/team_image/shafin_murani.jpg",
@@ -59,26 +61,50 @@ class OurTeamWidget extends StatelessWidget {
           subtitle: "Web Content Editor",
           background: cardColot),
     ];
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBar,
-        centerTitle: true,
-        title: const Text("Our Team"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: GridView.builder(
-          itemCount: array.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 4.0,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: appBar,
+            centerTitle: true,
+            title: const Text("Our Team"),
+            bottom: const TabBar(tabs: [
+              Tab(
+                icon: Icon(Icons.library_books_outlined),
+                text: "Magazine Team",
+              ),
+              Tab(
+                icon: Icon(Icons.phone_android_outlined),
+                text: "E-Magaine Team",
+              )
+            ]),
           ),
-          itemBuilder: (context, index) {
-            return array[index];
-          },
-        ),
-      ),
+          body: TabBarView(children: [
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  physics: const ScrollPhysics(
+                      parent: BouncingScrollPhysics(
+                          decelerationRate: ScrollDecelerationRate.normal)),
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 20,
+                  children: array,
+                )),
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  physics: const ScrollPhysics(
+                      parent: BouncingScrollPhysics(
+                          decelerationRate: ScrollDecelerationRate.normal)),
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 20,
+                  children: eMagazineArray,
+                )),
+          ])),
     );
   }
 }

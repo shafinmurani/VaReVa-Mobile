@@ -13,27 +13,60 @@ class _DrawerWrapperState extends State<DrawerWrapper> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
-      // signed in
-
-      return DrawerHeader(
+      return UserAccountsDrawerHeader(
         decoration: const BoxDecoration(
           color: appBar,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+                'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg'),
+          ),
         ),
-        child: Text(
-          "Welcome back, ${FirebaseAuth.instance.currentUser?.displayName}!",
-          style: const TextStyle(color: Colors.black, fontSize: 16),
+        accountName: Text(
+          "${FirebaseAuth.instance.currentUser!.displayName}",
+          style: const TextStyle(color: Colors.white),
+        ),
+        accountEmail: Text(
+          "${FirebaseAuth.instance.currentUser!.email}",
+          style: const TextStyle(color: Colors.white),
+        ),
+        currentAccountPicture: CircleAvatar(
+          backgroundImage: NetworkImage(
+            "${FirebaseAuth.instance.currentUser!.photoURL}",
+          ),
         ),
       );
-
       // return Placeholder();
     } else {
       // signed out
       // return const LoginWidget();
-      return const DrawerHeader(
+      return const UserAccountsDrawerHeader(
         decoration: BoxDecoration(
           color: appBar,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+                'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg'),
+          ),
         ),
-        child: Text('Welcome!'),
+        accountName: Text(
+          "Welcome User!",
+          style: TextStyle(color: Colors.white),
+        ),
+        accountEmail: Text(
+          "Email Address",
+          style: TextStyle(color: Colors.white),
+        ),
+        currentAccountPicture: CircleAvatar(
+          backgroundColor: primary,
+          child: Text(
+            "U",
+            style: TextStyle(
+              color: secondary,
+              fontSize: 22,
+            ),
+          ),
+        ),
       );
       // return const CircularProgressIndicator.adaptive();
     }

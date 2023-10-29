@@ -26,7 +26,6 @@ class _PdfWidgetState extends State<PdfWidget> {
       setState(() {
         pageNum = snapShot["Read"][productName];
       });
-      print(pageNum);
       return true;
     } else {
       return false;

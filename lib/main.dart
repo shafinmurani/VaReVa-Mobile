@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
+import 'package:vartarevarta_magazine/components/drawer_list_builder.dart';
 import 'package:vartarevarta_magazine/firebase_options.dart';
 import 'package:vartarevarta_magazine/screens/about_us.dart';
 import 'package:vartarevarta_magazine/screens/our_team.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'VaReVa Mobile',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'VaReVa Mobile'),
@@ -53,43 +54,46 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
         centerTitle: true,
-        backgroundColor: primary,
+        backgroundColor: const Color.fromARGB(161, 161, 136, 127),
         title: Text(widget.title),
       ),
       drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerWrapper(),
-          ListTile(
-            title: const Text('About Us'),
-            onTap: () {
-              // Update the state of the app.
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AboutWidget(),
-                ),
-              );
-              // ...
-            },
-          ),
-          ListTile(
-            title: const Text('Our Team'),
-            onTap: () {
-              
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const OurTeamWidget(),
-                ),
-              );
-            },
-          ),
-        ],
-      )),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerWrapper(),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About Us'),
+              onTap: () {
+                // Update the state of the app.
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutWidget(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.people_rounded),
+              title: const Text('Our Team'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OurTeamWidget(),
+                  ),
+                );
+              },
+            ),
+            const Divider(),
+            const DrawerListWidget(),
+          ],
+        ),
+      ),
       body: Center(
         child: FutureBuilder(
           future: _fApp,

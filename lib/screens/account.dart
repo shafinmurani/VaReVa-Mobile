@@ -16,48 +16,57 @@ Future signOut() async {
 class _AccountWidgetState extends State<AccountWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.network(
-          "${FirebaseAuth.instance.currentUser?.photoURL}",
-          height: 120,
-          width: 120,
-        ),
-        FractionallySizedBox(
-          widthFactor: 0.8,
-          child: Text(
-            "Name :  ${FirebaseAuth.instance.currentUser?.displayName}",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              color: secondary,
-              fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("YAccount"),
+      ),
+      body: FractionallySizedBox(
+        widthFactor: 0.8,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              "${FirebaseAuth.instance.currentUser?.photoURL}",
+              height: 120,
+              width: 120,
             ),
-          ),
-        ),
-        FractionallySizedBox(
-          widthFactor: 0.8,
-          child: Text(
-            "Email Address :  ${FirebaseAuth.instance.currentUser?.email}",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: secondary,
+            FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Text(
+                "Name :  ${FirebaseAuth.instance.currentUser?.displayName}",
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: secondary,
-              foregroundColor: primary,
-              padding: const EdgeInsets.all(10),
+            FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Text(
+                "Email Address :  ${FirebaseAuth.instance.currentUser?.email}",
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: secondary,
+                ),
+              ),
             ),
-            onPressed: signOut,
-            child: const Text("Log Out"))
-      ],
+            const SizedBox(height: 10),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: secondary,
+                  foregroundColor: primary,
+                  padding: const EdgeInsets.all(10),
+                ),
+                onPressed: signOut,
+                child: const Text("Log Out"))
+          ],
+        ),
+      ),
     );
   }
 }
