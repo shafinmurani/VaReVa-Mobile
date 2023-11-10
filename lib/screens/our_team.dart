@@ -1,3 +1,4 @@
+import 'package:auto_height_grid_view/auto_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:vartarevarta_magazine/components/card.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
@@ -83,26 +84,32 @@ class OurTeamWidget extends StatelessWidget {
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: GridView.count(
+                child: AutoHeightGridView(
                   crossAxisCount: 2,
+                  itemCount: array.length,
                   physics: const ScrollPhysics(
                       parent: BouncingScrollPhysics(
                           decelerationRate: ScrollDecelerationRate.normal)),
                   crossAxisSpacing: 2,
                   mainAxisSpacing: 20,
-                  children: array,
+                  builder: (context, index) {
+                    return array[index];
+                  },
                 )),
             Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: GridView.count(
+                child: AutoHeightGridView(
+                  itemCount: eMagazineArray.length,
                   crossAxisCount: 2,
                   physics: const ScrollPhysics(
                       parent: BouncingScrollPhysics(
                           decelerationRate: ScrollDecelerationRate.normal)),
                   crossAxisSpacing: 2,
                   mainAxisSpacing: 20,
-                  children: eMagazineArray,
+                  builder: (context, index) {
+                    return eMagazineArray[index];
+                  },
                 )),
           ])),
     );

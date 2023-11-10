@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1074972795804',
     projectId: 'vareva-mobile',
     storageBucket: 'vareva-mobile.appspot.com',
+    androidClientId: '1074972795804-rlt7cra5bc3nvgkjojcf1oplch1at19h.apps.googleusercontent.com',
+    iosClientId: '1074972795804-9cgsvhorf5mvbirpkttd27140lr5og9k.apps.googleusercontent.com',
     iosBundleId: 'com.example.vartarevartaMagazine',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1074972795804',
     projectId: 'vareva-mobile',
     storageBucket: 'vareva-mobile.appspot.com',
+    androidClientId: '1074972795804-rlt7cra5bc3nvgkjojcf1oplch1at19h.apps.googleusercontent.com',
+    iosClientId: '1074972795804-ma07ctovms7g2tklves2q6lv2evvh02g.apps.googleusercontent.com',
     iosBundleId: 'com.example.vartarevartaMagazine.RunnerTests',
   );
 }

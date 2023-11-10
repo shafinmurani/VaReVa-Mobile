@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,12 @@ final _razorpay = Razorpay();
 class PaymentWidget extends StatefulWidget {
   final String productName;
   final String path;
-
+  final int price;
   const PaymentWidget(
-      {super.key, required this.productName, required this.path});
+      {super.key,
+      required this.productName,
+      required this.path,
+      required this.price});
 
   @override
   State<PaymentWidget> createState() => _PaymentWidgetState();
@@ -31,14 +33,17 @@ class _PaymentWidgetState extends State<PaymentWidget> {
 
   void onPaymentSuccess(PaymentSuccessResponse response) {
     var collection = FirebaseFirestore.instance.collection('/data');
-
     collection.doc(FirebaseAuth.instance.currentUser?.uid).update({
       "Purchased": FieldValue.arrayUnion([widget.productName])
     });
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => PdfWidget(path: widget.path),
+          settings: RouteSettings(name: "Purchased ${widget.productName}"),
+          builder: (context) => PdfWidget(
+            path: widget.path,
+            name: widget.productName,
+          ),
         ));
   }
 
@@ -84,9 +89,10 @@ class _PaymentWidgetState extends State<PaymentWidget> {
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const Text(
-                  "Price : 22.50 INR",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                Text(
+                  "Price : ${widget.price} INR",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 50,
@@ -146,7 +152,7 @@ class _PaymentWidgetState extends State<PaymentWidget> {
                       } else {
                         var options = {
                           'key': 'rzp_test_TjYOj9jpuXJ3Tk',
-                          'amount': 2250,
+                          'amount': widget.price * 100,
                           'name': widget.productName,
                           'description': 'VaReVa Magazine Volume 2',
                           'prefill': {

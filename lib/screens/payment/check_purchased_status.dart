@@ -8,8 +8,12 @@ import 'package:vartarevarta_magazine/screens/pdf.dart';
 class CheckPurchased extends StatefulWidget {
   final String productId;
   final String path;
+  final int price;
   const CheckPurchased(
-      {super.key, required this.productId, required this.path});
+      {super.key,
+      required this.productId,
+      required this.path,
+      required this.price});
 
   @override
   State<CheckPurchased> createState() => _CheckPurchasedState();
@@ -44,11 +48,15 @@ class _CheckPurchasedState extends State<CheckPurchased> {
   Widget build(BuildContext context) {
     if (s != null) {
       if (s == true) {
-        return PdfWidget(path: widget.path);
+        return PdfWidget(
+          path: widget.path,
+          name: widget.productId,
+        );
       } else if (s == false) {
         return PaymentWidget(
           productName: widget.productId,
           path: widget.path,
+          price: widget.price,
         );
       }
     }

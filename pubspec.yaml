@@ -43,6 +43,11 @@ dependencies:
   flutter_document_picker:
   internet_file:
   razorpay_flutter:
+  firebase_messaging:
+  firebase_analytics:
+  auto_height_grid_view: ^1.0.0
+  gap:
+  mime: ^1.0.4
   advance_pdf_viewer:
     git:
       url: https://github.com/lohanidamodar/pdf_viewer.git

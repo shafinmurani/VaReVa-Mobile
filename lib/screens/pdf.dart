@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:pdfx/pdfx.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:vartarevarta_magazine/components/colors.dart';
 // import 'package:internet_file/internet_file.dart';
 
 class PdfWidget extends StatefulWidget {
   final String path;
-  const PdfWidget({super.key, required this.path});
+  final String name;
+  const PdfWidget({super.key, required this.path, required this.name});
 
   @override
   State<PdfWidget> createState() => _PdfWidgetState();
@@ -34,19 +34,18 @@ class _PdfWidgetState extends State<PdfWidget> {
   }
 
   Future<void> downloadURLExample(String path) async {
-    String downloadURL = await firebase_storage.FirebaseStorage.instance
-        .ref(path)
-        .getDownloadURL();
-
-    PDFDocument doc = await PDFDocument.fromURL(downloadURL);
+    await getData(widget.name);
+    PDFDocument doc = await PDFDocument.fromURL("${widget.path}.pdf");
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
+        settings: const RouteSettings(name: "Opening PDF "),
         builder: (context) => ViewPDF(
           doc,
           path,
           pageNum: pageNum,
+          name: widget.name,
         ),
       ),
     );
@@ -54,7 +53,6 @@ class _PdfWidgetState extends State<PdfWidget> {
 
   @override
   void initState() {
-    getData(widget.path);
     downloadURLExample(widget.path);
     super.initState();
   }
@@ -74,30 +72,31 @@ class ViewPDF extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final document;
   final int pageNum;
+  final String name;
   // ignore: prefer_typing_uninitialized_variables
   final path;
-  const ViewPDF(this.document, this.path, {super.key, required this.pageNum});
+  const ViewPDF(this.document, this.path,
+      {super.key, required this.pageNum, required this.name});
   @override
   // ignore: library_private_types_in_public_api
   _ViewPDFState createState() => _ViewPDFState();
 }
 
-updatePage(value, path) {
-  var collection = FirebaseFirestore.instance.collection('/data');
-
-  collection
-      .doc(FirebaseAuth.instance.currentUser?.uid)
-      .update({"Read.$path": value});
-}
-
 class _ViewPDFState extends State<ViewPDF> {
   @override
   Widget build(BuildContext context) {
+    updatePage(value, path) {
+      var collection = FirebaseFirestore.instance.collection('/data');
+
+      collection
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({"Read.${widget.name}": value});
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: PDFViewer(
         document: widget.document,
-        panLimit: 0,
         indicatorText: secondary,
         indicatorBackground: primary,
         controller: PageController(initialPage: widget.pageNum),
