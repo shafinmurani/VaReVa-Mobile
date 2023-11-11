@@ -1,9 +1,10 @@
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 // import 'package:pdfx/pdfx.dart';
-import 'package:vartarevarta_magazine/components/colors.dart';
+// import 'package:vartarevarta_magazine/components/colors.dart';
 // import 'package:internet_file/internet_file.dart';
 
 class PdfWidget extends StatefulWidget {
@@ -35,15 +36,13 @@ class _PdfWidgetState extends State<PdfWidget> {
 
   Future<void> downloadURLExample(String path) async {
     await getData(widget.name);
-    PDFDocument doc = await PDFDocument.fromURL("${widget.path}.pdf");
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         settings: const RouteSettings(name: "Opening PDF "),
         builder: (context) => ViewPDF(
-          doc,
-          path,
+          path: path,
           pageNum: pageNum,
           name: widget.name,
         ),
@@ -64,19 +63,22 @@ class _PdfWidgetState extends State<PdfWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator.adaptive());
+    return Center(child: Lottie.asset("assets/anim/loadin.json"));
   }
 }
 
 class ViewPDF extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final document;
   final int pageNum;
   final String name;
+  final String path;
+
   // ignore: prefer_typing_uninitialized_variables
-  final path;
-  const ViewPDF(this.document, this.path,
-      {super.key, required this.pageNum, required this.name});
+  const ViewPDF(
+      {super.key,
+      required this.pageNum,
+      required this.name,
+      required this.path});
   @override
   // ignore: library_private_types_in_public_api
   _ViewPDFState createState() => _ViewPDFState();
@@ -94,19 +96,24 @@ class _ViewPDFState extends State<ViewPDF> {
     }
 
     return Scaffold(
-      appBar: AppBar(),
-      body: PDFViewer(
-        document: widget.document,
-        indicatorText: secondary,
-        indicatorBackground: primary,
-        controller: PageController(initialPage: widget.pageNum),
-        lazyLoad: false,
-        pickerButtonColor: primary,
-        pickerIconColor: Colors.brown[800],
-        indicatorPosition: IndicatorPosition.bottomRight,
-        showPicker: false,
-        onPageChanged: (value) => updatePage(value, widget.path),
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.name),
+        ),
+        body: PDF(
+          swipeHorizontal: true,
+          defaultPage: widget.pageNum,
+          // fitPolicy: FitPolicy.BOTH,
+          autoSpacing: true,
+          enableSwipe: true,
+          onPageChanged: (page, total) => updatePage(page, widget.name),
+        ).cachedFromUrl(
+          widget.path,
+          placeholder: (double progress) => Center(
+            child: CircularProgressIndicator(
+              value: (progress / 100),
+            ),
+          ),
+          errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+        ));
   }
 }
