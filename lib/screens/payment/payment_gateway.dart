@@ -11,11 +11,13 @@ class PaymentWidget extends StatefulWidget {
   final String productName;
   final String path;
   final int price;
+  final String id;
   const PaymentWidget(
       {super.key,
       required this.productName,
       required this.path,
-      required this.price});
+      required this.price,
+      required this.id});
 
   @override
   State<PaymentWidget> createState() => _PaymentWidgetState();
@@ -34,14 +36,15 @@ class _PaymentWidgetState extends State<PaymentWidget> {
   void onPaymentSuccess(PaymentSuccessResponse response) {
     var collection = FirebaseFirestore.instance.collection('/data');
     collection.doc(FirebaseAuth.instance.currentUser?.uid).update({
-      "Purchased": FieldValue.arrayUnion([widget.productName])
+      "Purchased": FieldValue.arrayUnion([widget.id])
     });
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          settings: RouteSettings(name: "Purchased ${widget.productName}"),
+          settings: RouteSettings(name: "Purchased ${widget.id}"),
           builder: (context) => PdfWidget(
             path: widget.path,
+            id: widget.id,
             name: widget.productName,
           ),
         ));

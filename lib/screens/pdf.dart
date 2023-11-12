@@ -10,7 +10,9 @@ import 'package:lottie/lottie.dart';
 class PdfWidget extends StatefulWidget {
   final String path;
   final String name;
-  const PdfWidget({super.key, required this.path, required this.name});
+  final String id;
+  const PdfWidget(
+      {super.key, required this.path, required this.name, required this.id});
 
   @override
   State<PdfWidget> createState() => _PdfWidgetState();
@@ -35,14 +37,15 @@ class _PdfWidgetState extends State<PdfWidget> {
   }
 
   Future<void> downloadURLExample(String path) async {
-    await getData(widget.name);
+    await getData(widget.id);
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         settings: const RouteSettings(name: "Opening PDF "),
         builder: (context) => ViewPDF(
-          path: path,
+          id: widget.id,
+          path: widget.path,
           pageNum: pageNum,
           name: widget.name,
         ),
@@ -52,7 +55,7 @@ class _PdfWidgetState extends State<PdfWidget> {
 
   @override
   void initState() {
-    downloadURLExample(widget.path);
+    downloadURLExample(widget.id);
     super.initState();
   }
 
@@ -72,13 +75,14 @@ class ViewPDF extends StatefulWidget {
   final int pageNum;
   final String name;
   final String path;
-
+  final String id;
   // ignore: prefer_typing_uninitialized_variables
   const ViewPDF(
       {super.key,
       required this.pageNum,
       required this.name,
-      required this.path});
+      required this.path,
+      required this.id});
   @override
   // ignore: library_private_types_in_public_api
   _ViewPDFState createState() => _ViewPDFState();
@@ -92,7 +96,7 @@ class _ViewPDFState extends State<ViewPDF> {
 
       collection
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"Read.${widget.name}": value});
+          .update({"Read.${widget.id}": value});
     }
 
     return Scaffold(

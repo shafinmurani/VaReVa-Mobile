@@ -9,11 +9,13 @@ class CheckPurchased extends StatefulWidget {
   final String productId;
   final String path;
   final int price;
+  final String id;
   const CheckPurchased(
       {super.key,
       required this.productId,
       required this.path,
-      required this.price});
+      required this.price,
+      required this.id});
 
   @override
   State<CheckPurchased> createState() => _CheckPurchasedState();
@@ -40,23 +42,26 @@ class _CheckPurchasedState extends State<CheckPurchased> {
 
   @override
   void initState() {
-    getData(FirebaseAuth.instance.currentUser?.uid, widget.productId);
+    getData(FirebaseAuth.instance.currentUser?.uid, widget.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.path);
     if (s != null) {
       if (s == true) {
         return PdfWidget(
           path: widget.path,
           name: widget.productId,
+          id: widget.id,
         );
       } else if (s == false) {
         return PaymentWidget(
           productName: widget.productId,
           path: widget.path,
           price: widget.price,
+          id: widget.id,
         );
       }
     }
