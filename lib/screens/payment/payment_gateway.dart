@@ -42,10 +42,8 @@ class _PaymentWidgetState extends State<PaymentWidget> {
     });
     var book =
         FirebaseFirestore.instance.collection("magazines").doc(widget.id);
-    int? purchased;
-    await book.get().then((value) => {purchased = value["purchased"]});
     book.update({
-      "purchased": purchased! + 1,
+      "purchased": FieldValue.increment(1),
     });
 
     // ignore: use_build_context_synchronously

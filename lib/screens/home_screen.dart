@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vartarevarta_magazine/models/books.dart';
@@ -82,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(array[index].imagePath,
+                      CachedNetworkImage(
+                          imageUrl: array[index].imagePath,
                           fit: BoxFit.scaleDown),
                       const Gap(10),
                       Text(

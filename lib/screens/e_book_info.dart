@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/models/books.dart';
 import 'package:vartarevarta_magazine/screens/payment/payment_gateway.dart';
 import 'package:vartarevarta_magazine/screens/pdf.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MoreInfoWidget extends StatefulWidget {
   final Books item;
@@ -52,6 +54,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
       }
     }
 
+    getRating();
     if (s == true) {
       await getPageNum(widget.item.docId);
     }
@@ -61,6 +64,49 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
   void initState() {
     super.initState();
     getData(FirebaseAuth.instance.currentUser?.uid, widget.item.docId);
+  }
+
+  void putRating(double value, String docId) {
+    var book = FirebaseFirestore.instance
+        .collection("magazines")
+        .doc(widget.item.docId);
+    book.update({"rating.${FirebaseAuth.instance.currentUser!.uid}": value});
+
+    getRating();
+  }
+
+  double rating = 0;
+  bool? ratingUploaded;
+  double avgRating = 2.5;
+  double averageRating = 0;
+  double sum = 0;
+  List ratingArray = [];
+  void getRating() async {
+    await FirebaseFirestore.instance
+        .collection('magazines')
+        .doc(widget.item.docId)
+        .get()
+        .then((DocumentSnapshot ds) {
+      ratingArray = ds["rating"].values.toList();
+      sum = 0;
+      for (var e in ratingArray) {
+        sum += e;
+      }
+      setState(() {
+        averageRating = sum / ratingArray.length;
+      });
+
+      if (ds["rating"][FirebaseAuth.instance.currentUser!.uid] != null) {
+        setState(() {
+          ratingUploaded = true;
+          rating = ds["rating"][FirebaseAuth.instance.currentUser!.uid];
+        });
+      } else {
+        setState(() {
+          ratingUploaded = false;
+        });
+      }
+    });
   }
 
   @override
@@ -85,8 +131,8 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                     constraints: const BoxConstraints(
                       maxHeight: 300,
                     ),
-                    child: Image.network(
-                      widget.item.imagePath,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.item.imagePath,
                     ),
                   ),
                 ),
@@ -139,6 +185,56 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                   )
                 ],
               ),
+            ),
+            const Expanded(child: Gap(0)),
+            FractionallySizedBox(
+              widthFactor: 0.85,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RatingBar(
+                    initialRating:
+                        ratingUploaded == true ? rating : averageRating,
+                    ratingWidget: RatingWidget(
+                        full: const Icon(
+                          Icons.star,
+                          color: secondary,
+                        ),
+                        half: const Icon(
+                          Icons.star_half,
+                          color: secondary,
+                        ),
+                        empty: const Icon(
+                          Icons.star_border,
+                          color: secondary,
+                        )),
+                    onRatingUpdate: (rating) {
+                      // print(rating);
+                      putRating(rating, widget.item.docId);
+                    },
+                    glow: false,
+                    allowHalfRating: true,
+                    updateOnDrag: false,
+                  ),
+                  Text(" (${ratingArray.length})"),
+                ],
+              ),
+            ),
+            const Gap(20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.star_rounded,
+                  color: secondary,
+                  size: 24,
+                ),
+                const Gap(2),
+                Text(
+                  "$averageRating",
+                  style: const TextStyle(fontSize: 18),
+                )
+              ],
             ),
             const Expanded(child: Gap(0)),
             Padding(
