@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
@@ -26,8 +27,8 @@ class _AccountWidgetState extends State<AccountWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              "${FirebaseAuth.instance.currentUser?.photoURL}",
+            CachedNetworkImage(
+              imageUrl: "${FirebaseAuth.instance.currentUser?.photoURL}",
               height: 120,
               width: 120,
             ),

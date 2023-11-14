@@ -231,7 +231,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                 ),
                 const Gap(2),
                 Text(
-                  "$averageRating",
+                  averageRating.toStringAsFixed(2),
                   style: const TextStyle(fontSize: 18),
                 )
               ],
