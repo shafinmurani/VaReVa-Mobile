@@ -76,7 +76,7 @@ class OurTeamWidget extends StatelessWidget {
               ),
               Tab(
                 icon: Icon(Icons.phone_android_outlined),
-                text: "E-Magaine Team",
+                text: "E-Magazine Team",
               )
             ]),
           ),

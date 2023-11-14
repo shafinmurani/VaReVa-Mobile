@@ -12,12 +12,14 @@ class PaymentWidget extends StatefulWidget {
   final String path;
   final int price;
   final String id;
+  final int page;
   const PaymentWidget(
       {super.key,
       required this.productName,
       required this.path,
       required this.price,
-      required this.id});
+      required this.id,
+      required this.page});
 
   @override
   State<PaymentWidget> createState() => _PaymentWidgetState();
@@ -33,20 +35,28 @@ class _PaymentWidgetState extends State<PaymentWidget> {
     super.initState();
   }
 
-  void onPaymentSuccess(PaymentSuccessResponse response) {
+  void onPaymentSuccess(PaymentSuccessResponse response) async {
     var collection = FirebaseFirestore.instance.collection('/data');
     collection.doc(FirebaseAuth.instance.currentUser?.uid).update({
       "Purchased": FieldValue.arrayUnion([widget.id])
     });
+    var book =
+        FirebaseFirestore.instance.collection("magazines").doc(widget.id);
+    int? purchased;
+    await book.get().then((value) => {purchased = value["purchased"]});
+    book.update({
+      "purchased": purchased! + 1,
+    });
+
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          settings: RouteSettings(name: "Purchased ${widget.id}"),
-          builder: (context) => PdfWidget(
-            path: widget.path,
-            id: widget.id,
-            name: widget.productName,
-          ),
+          builder: (context) => ViewPDF(
+              pageNum: widget.page,
+              name: widget.productName,
+              path: widget.path,
+              id: widget.id),
         ));
   }
 
