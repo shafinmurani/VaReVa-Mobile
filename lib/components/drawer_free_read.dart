@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vartarevarta_magazine/screens/competition/upload.dart';
+import 'package:vartarevarta_magazine/screens/competition/listing.dart';
 
 class DrawerCompetition extends StatefulWidget {
   final bool buildComp;
@@ -24,7 +24,7 @@ class _DrawerCompetitionState extends State<DrawerCompetition> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CompetitionWidget(),
+                  builder: (context) => const CompetitionListing(),
                 ));
           },
           leading: const FaIcon(FontAwesomeIcons.pencil, size: 18),

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'VaReVa Mobile',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown.shade600,primary: Colors.brown.shade400),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'VaReVa Mobile'),

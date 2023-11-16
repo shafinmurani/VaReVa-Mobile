@@ -122,7 +122,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
           children: [
             Expanded(
               child: ListView(
-                // shrinkWrap: true,
+                shrinkWrap: true,
                 children: [
                   const Gap(30),
                   Row(
@@ -189,13 +189,13 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                       ],
                     ),
                   ),
-                  const Expanded(child: Gap(0)),
                   FractionallySizedBox(
                     widthFactor: 0.85,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         RatingBar(
+                          minRating: 1,
                           initialRating:
                               ratingUploaded == true ? rating : averageRating,
                           ratingWidget: RatingWidget(

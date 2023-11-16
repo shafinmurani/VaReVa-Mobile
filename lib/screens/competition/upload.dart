@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/components/successful.dart';
 import 'package:vartarevarta_magazine/components/text_input_widget.dart';
@@ -26,6 +27,8 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
       TextEditingController(text: FirebaseAuth.instance.currentUser?.email);
 
   TextEditingController addressController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  String numController = "";
 
   FilePickerResult? pickedFile;
   bool isPickedFile = false;
@@ -58,6 +61,7 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                     Input(
                       placeholder: "Full Name",
                       controller: nameController,
+                      keyboardType: TextInputType.name,
                     ),
                     Input(
                       placeholder: "Email Address",
@@ -70,6 +74,24 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                       keyboardType: TextInputType.multiline,
                       minLines: 5,
                       maxLines: 6,
+                    ),
+                    IntlPhoneField(
+                      onChanged: (phone) {
+                        numController = phone.completeNumber;
+                      },
+                      initialCountryCode: 'IN',
+                      decoration: const InputDecoration(
+                        labelText: 'Phone Number',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(),
+                        ),
+                      ),
+                    ),
+                    const Gap(20),
+                    Input(
+                      placeholder: "Title of the story",
+                      controller: titleController,
+                      keyboardType: TextInputType.text,
                     ),
                     const Gap(20),
                     isPickedFile
@@ -116,7 +138,11 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                               if (!isPickedFile ||
                                   addressController.text.isEmpty ||
                                   nameController.text.isEmpty ||
-                                  emailController.text.isEmpty) {
+                                  emailController.text.isEmpty ||
+                                  titleController.text.isEmpty) {
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -149,11 +175,13 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                                     FirebaseFirestore.instance
                                         .collection("competition");
                                 Map<String, dynamic> dataToSend = {
+                                  'title': titleController.text,
                                   'name': nameController.text,
                                   'uid': FirebaseAuth.instance.currentUser?.uid,
                                   'pdf': fileUrl,
                                   'email': emailController.text,
                                   'address': addressController.text,
+                                  'phone': numController,
                                   'status': "Under Review"
                                 };
                                 collectionRef.add(dataToSend);
@@ -183,7 +211,7 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                           ? const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: CircularProgressIndicator(
-                                color: Colors.deepPurple,
+                                color: secondary,
                               ),
                             )
                           : const Text(

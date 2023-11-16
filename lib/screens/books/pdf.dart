@@ -2,6 +2,7 @@ import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:no_screenshot/no_screenshot.dart';
 
 class ViewPDF extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -22,6 +23,28 @@ class ViewPDF extends StatefulWidget {
 }
 
 class _ViewPDFState extends State<ViewPDF> {
+  final _noScreenshot = NoScreenshot.instance;
+
+  disableScreenshot() async {
+    await _noScreenshot.screenshotOff();
+  }
+
+  enableScreenshot() async {
+    await _noScreenshot.screenshotOn();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    disableScreenshot();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    enableScreenshot();
+  }
+
   @override
   Widget build(BuildContext context) {
     updatePage(value, path) {
