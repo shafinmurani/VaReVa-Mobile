@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 
 class SquareTile extends StatelessWidget {
@@ -14,21 +15,23 @@ class SquareTile extends StatelessWidget {
         foregroundColor: primary,
         padding: const EdgeInsets.all(10),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Image.asset(
-            'assets/google_logo.png',
-            fit: BoxFit.cover,
-            height: 40,
-            width: 40,
-          ),
-          const SizedBox(
-            width: 5.0,
-          ),
-          const Text('Sign-in with Google')
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            FaIcon(
+              FontAwesomeIcons.google,
+              color: Colors.teal.shade700,
+              size: 22,
+            ),
+            const SizedBox(
+              width: 5.0,
+            ),
+            const Text('Sign-in with Google')
+          ],
+        ),
       ),
     );
   }

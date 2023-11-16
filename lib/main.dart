@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:vartarevarta_magazine/components/drawer_free_read.dart';
 import 'package:vartarevarta_magazine/components/drawer_list_builder.dart';
 import 'package:vartarevarta_magazine/firebase_options.dart';
-import 'package:vartarevarta_magazine/screens/about_us.dart';
-import 'package:vartarevarta_magazine/screens/our_team.dart';
+import 'package:vartarevarta_magazine/screens/static/about_us.dart';
+import 'package:vartarevarta_magazine/screens/static/our_team.dart';
 import 'package:vartarevarta_magazine/services/analytics_service.dart';
 import 'package:vartarevarta_magazine/services/drawer_wrapper.dart';
 import 'package:vartarevarta_magazine/services/notifications.dart';
@@ -93,6 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
+            ),
+            const Divider(),
+            const DrawerCompetition(
+              buildComp: true,
+            ),
+            const DrawerCompetition(
+              buildComp: false,
             ),
             const Divider(),
             const DrawerListWidget(),

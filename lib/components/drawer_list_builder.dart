@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DrawerListWidget extends StatefulWidget {
+  
   const DrawerListWidget({super.key});
 
   @override
@@ -33,8 +34,8 @@ class _DrawerListWidgetState extends State<DrawerListWidget> {
       // return const LoginWidget();
       return const ListTile(
         enabled: false,
-        leading: Icon(Icons.account_circle),
-        title: Text("Account"),
+        leading: Icon(Icons.logout_rounded),
+        title: Text("Log Out"),
       );
     }
   }

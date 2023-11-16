@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vartarevarta_magazine/models/books.dart';
-import 'package:vartarevarta_magazine/screens/e_book_info.dart';
+import 'package:vartarevarta_magazine/screens/books/e_book_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:auto_height_grid_view/auto_height_grid_view.dart';
 import 'package:gap/gap.dart';

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vartarevarta_magazine/screens/home_screen.dart';
-import 'package:vartarevarta_magazine/screens/login.dart';
+import 'package:vartarevarta_magazine/screens/home/home_screen.dart';
+import 'package:vartarevarta_magazine/screens/auth/login.dart';
 
 class WrapperWidget extends StatefulWidget {
   const WrapperWidget({super.key});
