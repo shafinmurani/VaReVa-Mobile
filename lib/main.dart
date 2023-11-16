@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vartarevarta_magazine/components/drawer_free_read.dart';
 import 'package:vartarevarta_magazine/components/drawer_list_builder.dart';
-import 'package:vartarevarta_magazine/firebase_options.dart';
+import 'package:vartarevarta_magazine/firebase/firebase_options.dart';
 import 'package:vartarevarta_magazine/screens/static/about_us.dart';
 import 'package:vartarevarta_magazine/screens/static/our_team.dart';
 import 'package:vartarevarta_magazine/services/analytics_service.dart';
