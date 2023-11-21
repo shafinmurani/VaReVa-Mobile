@@ -28,7 +28,7 @@ class _DrawerCompetitionState extends State<DrawerCompetition> {
                 ));
           },
           leading: const FaIcon(FontAwesomeIcons.pencil, size: 18),
-          title: const Text("Competition"),
+          title: const Text("વાર્તા સ્પર્ધા"),
         );
       }
       return ListTile(
@@ -37,7 +37,7 @@ class _DrawerCompetitionState extends State<DrawerCompetition> {
           // signOut();
         },
         leading: const FaIcon(FontAwesomeIcons.book, size: 18),
-        title: const Text("Open Library"),
+        title: const Text("મુક્ત વાંચનાલાય"),
       );
       // return Placeholder();
     } else {
@@ -48,14 +48,14 @@ class _DrawerCompetitionState extends State<DrawerCompetition> {
           enabled: false,
           onTap: null,
           leading: FaIcon(FontAwesomeIcons.pencil, size: 18),
-          title: Text("Competition"),
+          title: Text("વાર્તા સ્પર્ધા"),
         );
       }
       return const ListTile(
         enabled: false,
         onTap: null,
         leading: FaIcon(FontAwesomeIcons.book, size: 18),
-        title: Text("Open Library"),
+        title: Text("મુક્ત વાંચનાલાય"),
       );
     }
   }

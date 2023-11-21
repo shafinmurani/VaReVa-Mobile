@@ -162,10 +162,9 @@ class _PaymentWidgetState extends State<PaymentWidget> {
                         );
                       } else {
                         var options = {
-                          'key': 'rzp_test_TjYOj9jpuXJ3Tk',
+                          'key': 'rzp_live_mpe84NF38NR7hD',
                           'amount': widget.price * 100,
                           'name': widget.productName,
-                          'description': 'VaReVa Magazine Volume 2',
                           'prefill': {
                             'email': FirebaseAuth.instance.currentUser?.email,
                             'contact': _numController.text.toString()

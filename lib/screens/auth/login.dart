@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vartarevarta_magazine/components/square_tile.dart';
+import 'package:vartarevarta_magazine/screens/auth/privacy_policy/privacy.dart';
 import 'package:vartarevarta_magazine/services/login_service.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -25,6 +26,19 @@ class _LoginWidgetState extends State<LoginWidget> {
             SquareTile(
               ontap: AuthServices().signInWithGoogle,
             ),
+            const Gap(40),
+            const Text("By logging in you agree to our data privacy policy."),
+            const Gap(10),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PrivacyPolicy(),
+                    ));
+              },
+              child: const Text("Open Privacy policy"),
+            )
           ],
         ),
       ),

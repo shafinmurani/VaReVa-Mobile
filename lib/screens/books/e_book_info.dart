@@ -64,6 +64,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
   void initState() {
     super.initState();
     getData(FirebaseAuth.instance.currentUser?.uid, widget.item.docId);
+    getRating();
   }
 
   void putRating(double value, String docId) {
@@ -196,8 +197,11 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                       children: [
                         RatingBar(
                           minRating: 1,
-                          initialRating:
-                              ratingUploaded == true ? rating : averageRating,
+                          initialRating: ratingUploaded == true
+                              ? rating
+                              : ratingUploaded != true
+                                  ? averageRating
+                                  : 0,
                           ratingWidget: RatingWidget(
                               full: const Icon(
                                 Icons.star,

@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const DrawerWrapper(),
             ListTile(
               leading: const Icon(Icons.info_outline),
-              title: const Text('About Us'),
+              title: const Text('અમારા વિશે'),
               onTap: () {
                 // Update the state of the app.
                 Navigator.pop(context);
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: const Icon(Icons.people_rounded),
-              title: const Text('Our Team'),
+              title: const Text('વારેવા ટોળી'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
