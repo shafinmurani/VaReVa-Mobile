@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:vartarevarta_magazine/components/donate.dart';
 import 'package:vartarevarta_magazine/components/drawer_free_read.dart';
 import 'package:vartarevarta_magazine/components/drawer_list_builder.dart';
+import 'package:vartarevarta_magazine/components/subscribe.dart';
 import 'package:vartarevarta_magazine/firebase/firebase_options.dart';
 import 'package:vartarevarta_magazine/screens/static/about_us.dart';
 import 'package:vartarevarta_magazine/screens/static/our_team.dart';
@@ -27,7 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'VaReVa Mobile',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown.shade600,primary: Colors.brown.shade400),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.brown.shade600, primary: Colors.brown.shade400),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'VaReVa Mobile'),
@@ -45,18 +48,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Future<FirebaseApp> _fApp = Firebase.initializeApp();
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.attach_money_sharp),
-            tooltip: "Subscribe",
-          )
-        ],
         centerTitle: true,
         backgroundColor: const Color.fromARGB(161, 161, 136, 127),
         title: Text(widget.title),
@@ -102,6 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const DrawerCompetition(
               buildComp: false,
             ),
+            const Divider(),
+            const SubscribeComponent(),
+            const DonateComponent(),
             const Divider(),
             const DrawerListWidget(),
           ],

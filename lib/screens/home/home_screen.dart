@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             imagePath: item["imagePath"],
             docId: item.reference.id,
             purchasedCount: item["purchased"],
+            
           ),
         );
       });

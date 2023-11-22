@@ -128,17 +128,14 @@ class _CompetitionListingState extends State<CompetitionListing> {
                         title: Text("${snapshot.data?[index].title}"),
                         subtitle: Text("ID : ${snapshot.data?[index].id}"),
                         trailing: snapshot.data?[index].status == "Under Review"
-                            ? Tooltip(
-                                message: snapshot.data?[index].status,
-                                triggerMode: TooltipTriggerMode.tap,
-                                child: const FaIcon(
-                                    FontAwesomeIcons.clockRotateLeft),
+                            ? const Text(
+                                "Under Review",
+                                style: TextStyle(fontSize: 16),
                               )
                             : snapshot.data?[index].status == "Aprooved"
-                                ? const Tooltip(
-                                    message: "Recieved",
-                                    triggerMode: TooltipTriggerMode.tap,
-                                    child: FaIcon(FontAwesomeIcons.check),
+                                ? const Text(
+                                    "Recieved",
+                                    style: TextStyle(fontSize: 16),
                                   )
                                 : snapshot.data?[index].status == "Declined"
                                     ? const Tooltip(

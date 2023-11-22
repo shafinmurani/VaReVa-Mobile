@@ -7,6 +7,7 @@ class Input extends StatefulWidget {
   final TextInputType keyboardType;
   final int minLines;
   final int maxLines;
+  final bool enabled;
 
   const Input({
     super.key,
@@ -15,6 +16,7 @@ class Input extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.minLines = 1,
     this.maxLines = 2,
+    this.enabled = true,
   });
 
   @override
@@ -27,6 +29,7 @@ class _InputState extends State<Input> {
     return Column(
       children: [
         TextFormField(
+          enabled: widget.enabled,
           minLines: widget.minLines,
           maxLines: widget.maxLines,
           keyboardType: widget.keyboardType,

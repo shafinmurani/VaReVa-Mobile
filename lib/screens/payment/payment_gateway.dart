@@ -51,10 +51,11 @@ class _PaymentWidgetState extends State<PaymentWidget> {
         context,
         MaterialPageRoute(
           builder: (context) => ViewPDF(
-              pageNum: widget.page,
-              name: widget.productName,
-              path: widget.path,
-              id: widget.id),
+            pageNum: widget.page,
+            name: widget.productName,
+            path: widget.path,
+            id: widget.id,
+          ),
         ));
   }
 

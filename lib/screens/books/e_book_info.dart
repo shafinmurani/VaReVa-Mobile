@@ -89,13 +89,15 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
         .get()
         .then((DocumentSnapshot ds) {
       ratingArray = ds["rating"].values.toList();
-      sum = 0;
-      for (var e in ratingArray) {
-        sum += e;
+      if (ratingArray.isNotEmpty) {
+        sum = 0;
+        for (var e in ratingArray) {
+          sum += e;
+        }
+        setState(() {
+          averageRating = sum / ratingArray.length;
+        });
       }
-      setState(() {
-        averageRating = sum / ratingArray.length;
-      });
 
       if (ds["rating"][FirebaseAuth.instance.currentUser!.uid] != null) {
         setState(() {
