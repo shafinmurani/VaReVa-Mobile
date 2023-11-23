@@ -204,7 +204,7 @@ class _SubscribeWidgetState extends State<SubscribeWidget> {
                           return;
                         }
                         var options = {
-                          'key': 'rzp_test_TjYOj9jpuXJ3Tk',
+                          'key': 'rzp_live_mpe84NF38NR7hD',
                           'amount': 440 * 100,
                           'name': "1 year subscription for VarReVa Magazine",
                           'notes': {
