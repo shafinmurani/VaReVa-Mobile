@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,10 @@ import 'package:vartarevarta_magazine/models/books.dart';
 import 'package:vartarevarta_magazine/screens/payment/payment_gateway.dart';
 import 'package:vartarevarta_magazine/screens/books/pdf.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MoreInfoWidget extends StatefulWidget {
   final Books item;
@@ -112,6 +118,18 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
     });
   }
 
+  Future<File> _fileFromImageUrl() async {
+    final response = await http.get(Uri.parse(widget.item.imagePath));
+
+    final documentDirectory = await getApplicationDocumentsDirectory();
+
+    final file = File(join(documentDirectory.path, 'imagetest.png'));
+
+    file.writeAsBytesSync(response.bodyBytes);
+
+    return file;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (s != null) {
@@ -120,6 +138,20 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
           backgroundColor: primary,
           title: Text(widget.item.name),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () async {
+                  _fileFromImageUrl().then((value) {
+                    Share.shareXFiles([XFile(value.path)],
+                        text:
+                            "Check out ${widget.item.name} at VaReVa Magazine on Play Store\n\n https://play.google.com/store/apps/details?id=com.example.vartarevarta_magazine ");
+                  });
+                },
+                icon: const Icon(
+                  Icons.share,
+                  size: 25,
+                ))
+          ],
         ),
         body: Column(
           children: [

@@ -48,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Future<FirebaseApp> _fApp = Firebase.initializeApp();
-  
 
   @override
   Widget build(BuildContext context) {

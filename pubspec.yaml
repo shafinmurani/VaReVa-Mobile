@@ -57,6 +57,10 @@ dependencies:
   intl_phone_field: ^3.2.0
   no_screenshot: ^0.0.1+6
   flutter_sim_country_code: ^0.1.2
+  share_plus: ^7.2.1
+  http: ^0.13.6
+  path: ^1.8.3
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
