@@ -68,7 +68,7 @@ class OurTeamWidget extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: appBar,
             centerTitle: true,
-            title: const Text("Our Team"),
+            title: const Text("વારેવા ટોળી"),
             bottom: const TabBar(tabs: [
               Tab(
                 icon: Icon(Icons.library_books_outlined),

@@ -65,6 +65,7 @@ class _ViewPDFState extends State<ViewPDF> {
                 defaultPage: widget.pageNum,
                 // fitPolicy: FitPolicy.BOTH,
                 autoSpacing: true,
+                pageSnap: true,
                 enableSwipe: true,
                 onPageChanged: (page, total) => updatePage(page, widget.name),
                 preventLinkNavigation: true)

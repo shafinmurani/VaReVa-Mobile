@@ -27,13 +27,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorObservers: [AnalyticsService().getAnalyticsObserver()],
       debugShowCheckedModeBanner: false,
-      title: 'VaReVa Mobile',
+      title: 'VaReVa Magazine',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.brown.shade600, primary: Colors.brown.shade400),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'VaReVa Mobile'),
+      home: const MyHomePage(title: 'VaReVa Magazine'),
     );
   }
 }
