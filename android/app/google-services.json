@@ -7,17 +7,69 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1074972795804:android:b50982870f63050df6de59",
+        "mobilesdk_app_id": "1:1074972795804:android:2c349dc8992272a0f6de59",
         "android_client_info": {
-          "package_name": "com.example.vartarevarta_magazine"
+          "package_name": "co.vareva.magazine"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1074972795804-rlt7cra5bc3nvgkjojcf1oplch1at19h.apps.googleusercontent.com",
+          "client_id": "1074972795804-5asuvl4brdff27idma7re3kllr022uud.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.vartarevarta_magazine",
+            "package_name": "co.vareva.magazine",
+            "certificate_hash": "022a801ad93350de692472e2262ad57b95906508"
+          }
+        },
+        {
+          "client_id": "1074972795804-8gt4r0ndd7fs6dcvur7s4kevpact70ed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.vareva.magazine",
+            "certificate_hash": "4d2fa23fe068e6f30e0553e5d82f2676b9a8595b"
+          }
+        },
+        {
+          "client_id": "1074972795804-okj8k0ptnqblgsm503rrdmfru2h2kigt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKGXTmKL_xRIh5l_6fnqM-OKrUEmx6xcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074972795804-okj8k0ptnqblgsm503rrdmfru2h2kigt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1074972795804-9cgsvhorf5mvbirpkttd27140lr5og9k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vartarevartaMagazine"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074972795804:android:bc838b4a951a691cf6de59",
+        "android_client_info": {
+          "package_name": "com.example.vareva_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074972795804-q6i1gtkr3gjhrl3u94niiaftsjmpqsgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vareva_admin",
             "certificate_hash": "4d2fa23fe068e6f30e0553e5d82f2676b9a8595b"
           }
         },

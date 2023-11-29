@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vartarevarta_magazine/screens/competition/listing.dart';
-import 'package:vartarevarta_magazine/screens/open_library/list.dart';
 
 class DrawerCompetition extends StatefulWidget {
   final bool buildComp;
@@ -36,11 +35,7 @@ class _DrawerCompetitionState extends State<DrawerCompetition> {
         enabled: true,
         onTap: () {
           // signOut();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const OpenLibraryList(),
-              ));
+          
         },
         leading: const FaIcon(FontAwesomeIcons.book, size: 18),
         title: const Text("મુક્ત વાંચનાલાય"),

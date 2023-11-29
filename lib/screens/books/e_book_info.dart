@@ -144,7 +144,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                   _fileFromImageUrl().then((value) {
                     Share.shareXFiles([XFile(value.path)],
                         text:
-                            "Check out ${widget.item.name} at VaReVa Magazine on Play Store\n\n https://play.google.com/store/apps/details?id=com.example.vartarevarta_magazine ");
+                            "Check out ${widget.item.name} at VaReVa Magazine on Play Store\n\n https://play.google.com/store/apps/details?id=co.vareva.magazine ");
                   });
                 },
                 icon: const Icon(

@@ -1,14 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:vartarevarta_magazine/components/donate.dart';
-import 'package:vartarevarta_magazine/components/drawer_free_read.dart';
-import 'package:vartarevarta_magazine/components/drawer_list_builder.dart';
-import 'package:vartarevarta_magazine/components/subscribe.dart';
 import 'package:vartarevarta_magazine/firebase/firebase_options.dart';
-import 'package:vartarevarta_magazine/screens/static/about_us.dart';
-import 'package:vartarevarta_magazine/screens/static/our_team.dart';
 import 'package:vartarevarta_magazine/services/analytics_service.dart';
-import 'package:vartarevarta_magazine/services/drawer_wrapper.dart';
 import 'package:vartarevarta_magazine/services/notifications.dart';
 import 'package:vartarevarta_magazine/services/wrapper.dart';
 
@@ -33,93 +26,8 @@ class MyApp extends StatelessWidget {
             seedColor: Colors.brown.shade600, primary: Colors.brown.shade400),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'VaReVa Magazine'),
+      home: const WrapperWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final Future<FirebaseApp> _fApp = Firebase.initializeApp();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(161, 161, 136, 127),
-        title: Text(widget.title),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerWrapper(),
-            ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text('અમારા વિશે'),
-              onTap: () {
-                // Update the state of the app.
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    settings: const RouteSettings(name: "About Widget"),
-                    builder: (context) => const AboutWidget(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.people_rounded),
-              title: const Text('વારેવા ટોળી'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    settings: const RouteSettings(name: "Team Widget"),
-                    builder: (context) => const OurTeamWidget(),
-                  ),
-                );
-              },
-            ),
-            const Divider(),
-            const DrawerCompetition(
-              buildComp: true,
-            ),
-            const DrawerCompetition(
-              buildComp: false,
-            ),
-            const Divider(),
-            const SubscribeComponent(),
-            const DonateComponent(),
-            const Divider(),
-            const DrawerListWidget(),
-          ],
-        ),
-      ),
-      body: Center(
-        child: FutureBuilder(
-          future: _fApp,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text("Something is wrong");
-            } else if (snapshot.hasData) {
-              return const WrapperWidget();
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        ),
-      ),
-    );
-  }
-}

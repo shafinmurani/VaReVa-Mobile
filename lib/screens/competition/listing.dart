@@ -97,7 +97,10 @@ class _CompetitionListingState extends State<CompetitionListing> {
                           ),
                         )
                     : null,
-                child: const FaIcon(FontAwesomeIcons.plus),
+                child: const FaIcon(
+                  Icons.upload,
+                  size: 30,
+                ),
               )
             : null,
         appBar: AppBar(

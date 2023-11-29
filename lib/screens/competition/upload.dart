@@ -6,8 +6,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:gap/gap.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:lottie/lottie.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/components/successful.dart';
 import 'package:vartarevarta_magazine/components/text_input_widget.dart';
@@ -34,6 +36,7 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
   bool isPickedFile = false;
   bool isLoading = false;
   String fileUrl = "";
+  bool rulesChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +129,49 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                       ],
                     ),
                     const Gap(20),
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Checkbox(
+                              value: rulesChecked,
+                              activeColor: Colors.deepPurple[600],
+                              onChanged: (value) {
+                                setState(() {
+                                  rulesChecked = value!;
+                                });
+                              }),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurple[400],
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const RulesWidget(),
+                                  ));
+                            },
+                            child: const Text(
+                              "વાર્તા સ્પર્ધાના નિયમો",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          const Gap(12),
+                          const Text(
+                            "મેં વાંચ્યા છે, હું સહમત છું",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const Gap(20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepPurple[400]),
@@ -139,7 +185,8 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                                   addressController.text.isEmpty ||
                                   nameController.text.isEmpty ||
                                   emailController.text.isEmpty ||
-                                  titleController.text.isEmpty) {
+                                  titleController.text.isEmpty ||
+                                  !rulesChecked) {
                                 setState(() {
                                   isLoading = false;
                                 });
@@ -225,5 +272,54 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
             ),
           )),
     );
+  }
+}
+
+class RulesWidget extends StatefulWidget {
+  const RulesWidget({super.key});
+
+  @override
+  State<RulesWidget> createState() => _RulesWidgetState();
+}
+
+class _RulesWidgetState extends State<RulesWidget> {
+  String pdfUrl = "";
+  bool data = false;
+  getPdfUrl() async {
+    await FirebaseStorage.instance
+        .ref()
+        .child("rules.pdf")
+        .getDownloadURL()
+        .then((value) {
+      setState(() {
+        pdfUrl = value;
+        data = true;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPdfUrl();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (data) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: const PDF(
+          swipeHorizontal: true,
+          autoSpacing: true,
+          pageSnap: true,
+          enableSwipe: true,
+        ).cachedFromUrl(pdfUrl),
+      );
+    } else {
+      return Center(
+        child: Lottie.asset("assets/anim/loadin.json", width: 190),
+      );
+    }
   }
 }

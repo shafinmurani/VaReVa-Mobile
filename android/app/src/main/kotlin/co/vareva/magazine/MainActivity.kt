@@ -1,4 +1,4 @@
-package com.example.vartarevarta_magazine
+package co.vareva.magazine
 
 import io.flutter.embedding.android.FlutterActivity
 
