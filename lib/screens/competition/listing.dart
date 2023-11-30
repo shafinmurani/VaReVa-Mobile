@@ -158,9 +158,12 @@ class _CompetitionListingState extends State<CompetitionListing> {
                 );
               } else if (snapshot.data!.isEmpty) {
                 return const Center(
-                  child: Text(
-                    "No competitions active right now...",
-                    style: TextStyle(fontSize: 18),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Text(
+                      "હાલ કોઈ સ્પર્ધા ચાલુ નથી",
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 );
               }
@@ -178,9 +181,12 @@ class _CompetitionListingState extends State<CompetitionListing> {
             } else {
               if (snapshot.data == null) {
                 return const Center(
-                  child: Text(
-                    "No uploads present ",
-                    style: TextStyle(fontSize: 18),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Text(
+                      "વાર્તા સ્પર્ધામાં ભાગ લેવા માટે અપલોડના નિશાન ઉપર લિક કરો",
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 );
               }

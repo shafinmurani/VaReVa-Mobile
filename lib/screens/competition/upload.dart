@@ -129,46 +129,43 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                       ],
                     ),
                     const Gap(20),
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Checkbox(
-                              value: rulesChecked,
-                              activeColor: Colors.deepPurple[600],
-                              onChanged: (value) {
-                                setState(() {
-                                  rulesChecked = value!;
-                                });
-                              }),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepPurple[400],
-                              foregroundColor: Colors.white,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const RulesWidget(),
-                                  ));
-                            },
-                            child: const Text(
-                              "વાર્તા સ્પર્ધાના નિયમો",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Checkbox(
+                            value: rulesChecked,
+                            activeColor: Colors.deepPurple[600],
+                            onChanged: (value) {
+                              setState(() {
+                                rulesChecked = value!;
+                              });
+                            }),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepPurple[400],
+                            foregroundColor: Colors.white,
                           ),
-                          const Gap(12),
-                          const Text(
-                            "મેં વાંચ્યા છે, હું સહમત છું",
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RulesWidget(),
+                                ));
+                          },
+                          child: const Text(
+                            "વાર્તા સ્પર્ધાના નિયમો",
                             style: TextStyle(
                               fontSize: 18,
                             ),
-                          )
-                        ],
+                          ),
+                        ),
+                        const Gap(12),
+                      ],
+                    ),
+                    const Text(
+                      "મેં વાંચ્યા છે, હું સહમત છું",
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
                     ),
                     const Gap(20),

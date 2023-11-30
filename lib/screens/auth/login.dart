@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vartarevarta_magazine/components/square_tile.dart';
 import 'package:vartarevarta_magazine/screens/auth/privacy_policy/privacy.dart';
-import 'package:vartarevarta_magazine/services/login_service.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -23,8 +22,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           children: [
             Lottie.asset("assets/anim/login.json"),
             const Gap(10),
-            SquareTile(
-              ontap: AuthServices().signInWithGoogle,
+            const SquareTile(
             ),
             const Gap(40),
             const Text("By logging in you agree to our data privacy policy."),
