@@ -30,11 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
             imagePath: item["imagePath"],
             docId: item.reference.id,
             purchasedCount: item["purchased"],
-            
           ),
+        );
+        array.sort(
+          (a, b) => a.imagePath.compareTo(b.imagePath),
         );
       });
     }
+    setState(() {
+      array = array.reversed.toList();
+    });
   }
 
   @override

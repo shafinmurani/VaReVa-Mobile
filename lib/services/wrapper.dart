@@ -11,7 +11,6 @@ import 'package:vartarevarta_magazine/screens/home/home_screen.dart';
 import 'package:vartarevarta_magazine/screens/auth/login.dart';
 import 'package:vartarevarta_magazine/screens/open_library/category_listing.dart';
 import 'package:vartarevarta_magazine/screens/static/about_us.dart';
-import 'package:vartarevarta_magazine/screens/static/our_team.dart';
 import 'package:vartarevarta_magazine/screens/subscription/subscribe.dart';
 import 'package:vartarevarta_magazine/services/drawer_wrapper.dart';
 
@@ -125,19 +124,6 @@ class _WrapperWidgetState extends State<WrapperWidget> {
             child: ListView(
           children: [
             const DrawerWrapper(),
-            ListTile(
-              leading: const Icon(Icons.group),
-              title: const Text("વારેવા ટોળી"),
-              onTap: () {
-                Navigator.pop(context);
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const OurTeamWidget(),
-                    ));
-              },
-            ),
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text("અમારા વિશે"),
