@@ -264,7 +264,7 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
               child: SlideAction(
                 outerColor: secondary,
                 innerColor: primary,
-                text: "Read",
+                text: "Swipe to read",
                 onSubmit: () {
                   FirebaseFirestore.instance
                       .collection("open_library")

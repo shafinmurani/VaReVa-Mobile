@@ -25,6 +25,8 @@ class _DonationWidgetState extends State<DonationWidget> {
 
   TextEditingController email =
       TextEditingController(text: FirebaseAuth.instance.currentUser?.email);
+  bool isLoading = false;
+
   @override
   void initState() {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, onPaymentSuccess);
@@ -45,6 +47,9 @@ class _DonationWidgetState extends State<DonationWidget> {
       "paymentId": response.paymentId,
       "orderId": response.orderId,
     });
+    setState(() {
+      isLoading = false;
+    });
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context,
@@ -53,8 +58,18 @@ class _DonationWidgetState extends State<DonationWidget> {
         ));
   }
 
-  void onPaymentFailure(PaymentFailureResponse response) {}
-  void onExternalWallet(ExternalWalletResponse response) {}
+  void onPaymentFailure(PaymentFailureResponse response) {
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void onExternalWallet(ExternalWalletResponse response) {
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   void dispose() {
     _razorpay.clear();
@@ -90,7 +105,9 @@ class _DonationWidgetState extends State<DonationWidget> {
                 ),
                 IntlPhoneField(
                   onChanged: (nume) {
-                    phone.text = nume.completeNumber;
+                    setState(() {
+                      phone.text = nume.completeNumber;
+                    });
                   },
                   initialCountryCode: 'IN',
                   decoration: const InputDecoration(
@@ -104,6 +121,7 @@ class _DonationWidgetState extends State<DonationWidget> {
                   enabled: true,
                   placeholder: "Donation in INR",
                   controller: amt,
+                  keyboardType: TextInputType.number,
                 ),
                 Input(
                   enabled: false,
@@ -114,9 +132,10 @@ class _DonationWidgetState extends State<DonationWidget> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: secondary,
-                        foregroundColor: primary,
-                      ),
+                          backgroundColor: Colors.brown[400],
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 58, vertical: 16)),
                       onPressed: () {
                         if (name.text.isEmpty ||
                             address.text.isEmpty ||
@@ -128,19 +147,27 @@ class _DonationWidgetState extends State<DonationWidget> {
                           );
                           return;
                         }
-                        var options = {
-                          'key': 'rzp_live_mpe84NF3990468NR7hD',
+                        setState(() {
+                          isLoading = true;
+                        });
+                        Map<String, dynamic> options = {
+                          'key': 'rzp_live_mpe84NF38NR7hD',
                           'amount': int.parse(amt.text) * 100,
                           'name': "Donation by ${name.text} : ${email.text}",
                           'prefill': {
                             'email': email.text,
-                            'contact': phone.text.toString()
-                            // 'contact':
+                            'contact': phone.text
                           }
                         };
                         _razorpay.open(options);
                       },
-                      child: const Text("Donate"),
+                      child: isLoading
+                          ? const CircularProgressIndicator()
+                          : const Text("Donate",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300,
+                              )),
                     ),
                   ],
                 )

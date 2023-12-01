@@ -288,9 +288,9 @@ class _MoreInfoWidgetState extends State<MoreInfoWidget> {
                   outerColor: secondary,
                   innerColor: primary,
                   text: s == true
-                      ? "Read"
+                      ? "Swipe to read"
                       : s == false
-                          ? "Purchase"
+                          ? "Swipe to purchase"
                           : "Loading...",
                   onSubmit: () {
                     if (s == true) {
