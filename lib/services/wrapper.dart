@@ -152,7 +152,7 @@ class _WrapperWidgetState extends State<WrapperWidget> {
             const Divider(),
             ListTile(
                 leading: const Icon(Icons.book),
-                title: const Text("વાર્તા સ્પર્ધા"),
+                title: const Text("સ્પર્ધા"),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(

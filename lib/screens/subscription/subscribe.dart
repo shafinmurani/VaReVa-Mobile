@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/components/successful.dart';
 import 'package:vartarevarta_magazine/components/text_input_widget.dart';
@@ -63,8 +64,6 @@ class _SubscribeWidgetState extends State<SubscribeWidget> {
     _razorpay.clear();
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +140,7 @@ class _SubscribeWidgetState extends State<SubscribeWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Final Price : ",
+                    "વાર્ષિક લવાજમ : ",
                     style: TextStyle(fontSize: 20),
                   ),
                   Gap(5),
@@ -154,7 +153,32 @@ class _SubscribeWidgetState extends State<SubscribeWidget> {
                 ],
               ),
             ),
-            const Gap(40),
+            const Gap(20),
+            const Text(
+              "વાર્ષિક લવાજમ ભર્યા પછી એક મહિનાની અંદર કુરિયર અથવા પોસ્ટ દ્વારા આપના સરનામે ન મળે તો ",
+              style: TextStyle(
+                fontSize: 17,
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                launchUrl(Uri(
+                  scheme: 'mailto',
+                  path: 'vrvsamayik@gmail.com',
+                ));
+              },
+              child: const Text(
+                "vrvsamayik@gmail.com",
+                style: TextStyle(fontSize: 17, color: Colors.blue),
+              ),
+            ),
+            const Text(
+              " ઉપર ઇ-મેઈલથી જાણ કરવી",
+              style: TextStyle(
+                fontSize: 17,
+              ),
+            ),
+            const Gap(20),
             Column(
               children: [
                 ElevatedButton(

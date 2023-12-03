@@ -153,7 +153,7 @@ class _CompetitionWidgetState extends State<CompetitionWidget> {
                                 ));
                           },
                           child: const Text(
-                            "વાર્તા સ્પર્ધાના નિયમો",
+                            "સ્પર્ધાના નિયમો",
                             style: TextStyle(
                               fontSize: 18,
                             ),

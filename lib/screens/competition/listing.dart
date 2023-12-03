@@ -184,7 +184,7 @@ class _CompetitionListingState extends State<CompetitionListing> {
                   child: FractionallySizedBox(
                     widthFactor: 0.8,
                     child: Text(
-                      "વાર્તા સ્પર્ધામાં ભાગ લેવા માટે અપલોડના નિશાન ઉપર લિક કરો",
+                      "સ્પર્ધામાં ભાગ લેવા માટે અપલોડના નિશાન ઉપર લિક કરો",
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
