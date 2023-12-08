@@ -24,7 +24,6 @@ class ApiServices {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print(response.statusCode);
     if (response.statusCode == 200) {
       return {
         "status": "success",
