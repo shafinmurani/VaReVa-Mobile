@@ -26,19 +26,17 @@ class _OpenLibraryListState extends State<OpenLibraryList> {
         .get();
 
     for (var item in snapShot.docs) {
-      setState(() {
-        array.add(
-          FreeRead(
-            title: item["title"],
-            pdf: item["pdfPath"],
-            category: item["category"],
-            image: item["imagePath"],
-            docId: item.reference.id,
-            author: item["author"],
-            purchased: item["purchased"],
-          ),
-        );
-      });
+      array.add(
+        FreeRead(
+          title: item["title"],
+          pdf: item["pdfPath"],
+          category: item["category"],
+          image: item["imagePath"],
+          docId: item.reference.id,
+          author: item["author"],
+          purchased: item["purchased"],
+        ),
+      );
     }
 
     return array;

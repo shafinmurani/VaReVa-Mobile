@@ -69,12 +69,13 @@ class _CompetitionListingState extends State<CompetitionListing> {
         .doc("status")
         .get()
         .then((DocumentSnapshot ds) {
-      setState(() {
-        status = ds["enabled"];
-        if (ds["enabled"]) {
+      status = ds["enabled"];
+      if (ds["enabled"]) {
+        setState(() {
+          status = ds["enabled"];
           compName = ds["name"];
-        }
-      });
+        });
+      }
     });
   }
 
@@ -184,7 +185,7 @@ class _CompetitionListingState extends State<CompetitionListing> {
                   child: FractionallySizedBox(
                     widthFactor: 0.8,
                     child: Text(
-                      "સ્પર્ધામાં ભાગ લેવા માટે અપલોડના નિશાન ઉપર લિક કરો",
+                      "સ્પર્ધામાં ભાગ લેવા માટે અપલોડનું બટન દબાવો.",
                       style: TextStyle(fontSize: 18),
                     ),
                   ),

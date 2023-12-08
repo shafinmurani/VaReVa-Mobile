@@ -7,6 +7,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/components/successful.dart';
 import 'package:vartarevarta_magazine/components/text_input_widget.dart';
+import 'package:vartarevarta_magazine/services/order.dart';
 
 final _razorpay = Razorpay();
 
@@ -47,6 +48,7 @@ class _DonationWidgetState extends State<DonationWidget> {
       "paymentId": response.paymentId,
       "orderId": response.orderId,
     });
+
     setState(() {
       isLoading = false;
     });
@@ -75,6 +77,8 @@ class _DonationWidgetState extends State<DonationWidget> {
     _razorpay.clear();
     super.dispose();
   }
+
+  int uniq = DateTime.now().millisecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +143,8 @@ class _DonationWidgetState extends State<DonationWidget> {
                       onPressed: () {
                         if (name.text.isEmpty ||
                             address.text.isEmpty ||
-                            phone.text.isEmpty) {
+                            phone.text.isEmpty ||
+                            amt.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Please fill all the inputs"),
@@ -150,16 +155,23 @@ class _DonationWidgetState extends State<DonationWidget> {
                         setState(() {
                           isLoading = true;
                         });
-                        Map<String, dynamic> options = {
-                          'key': 'rzp_live_mpe84NF38NR7hD',
-                          'amount': int.parse(amt.text) * 100,
-                          'name': "Donation by ${name.text} : ${email.text}",
-                          'prefill': {
-                            'email': email.text,
-                            'contact': phone.text
-                          }
-                        };
-                        _razorpay.open(options);
+                        ApiServices()
+                            .razorPayApi(int.parse(amt.text), uniq.toString())
+                            .then((value) {
+                          var options = {
+                            'key': 'rzp_live_mpe84NF38NR7hD',
+                            'amount': int.parse(amt.text) * 100,
+                            'name': "Donation by ${name.text} : ${email.text}",
+                            'order_id': value["body"]["id"],
+                            'reciept_id': value["body"]["reciept"],
+                            'prefill': {
+                              'email': FirebaseAuth.instance.currentUser?.email,
+                              'contact': phone.text
+                              // 'contact':
+                            }
+                          };
+                          _razorpay.open(options);
+                        });
                       },
                       child: isLoading
                           ? const CircularProgressIndicator()

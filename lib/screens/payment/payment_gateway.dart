@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:vartarevarta_magazine/components/colors.dart';
 import 'package:vartarevarta_magazine/screens/books/pdf.dart';
+import 'package:vartarevarta_magazine/services/order.dart';
 
 final _razorpay = Razorpay();
 
@@ -35,6 +36,8 @@ class _PaymentWidgetState extends State<PaymentWidget> {
     super.initState();
   }
 
+  bool isLoading = false;
+
   void onPaymentSuccess(PaymentSuccessResponse response) async {
     var collection = FirebaseFirestore.instance.collection('/data');
     collection.doc(FirebaseAuth.instance.currentUser?.uid).update({
@@ -57,15 +60,25 @@ class _PaymentWidgetState extends State<PaymentWidget> {
             id: widget.id,
           ),
         ));
+    setState(
+      () => isLoading = false,
+    );
   }
 
-  void onPaymentFailure(PaymentFailureResponse response) {}
+  void onPaymentFailure(PaymentFailureResponse response) {
+    setState(
+      () => isLoading = false,
+    );
+  }
+
   void onExternalWallet(ExternalWalletResponse response) {}
   @override
   void dispose() {
     _razorpay.clear();
     super.dispose();
   }
+
+  int uniq = DateTime.now().millisecondsSinceEpoch;
 
   final TextEditingController _emailController =
       TextEditingController(text: FirebaseAuth.instance.currentUser?.email);
@@ -134,7 +147,11 @@ class _PaymentWidgetState extends State<PaymentWidget> {
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: secondary, foregroundColor: primary),
+                      backgroundColor: Colors.brown.shade800,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 25),
+                    ),
                     onPressed: () {
                       if (_numController.text.isEmpty) {
                         Widget okButton = TextButton(
@@ -162,20 +179,31 @@ class _PaymentWidgetState extends State<PaymentWidget> {
                           },
                         );
                       } else {
-                        var options = {
-                          'key': 'rzp_live_mpe84NF38NR7hD',
-                          'amount': widget.price * 100,
-                          'name': widget.productName,
-                          'prefill': {
-                            'email': FirebaseAuth.instance.currentUser?.email,
-                            'contact': _numController.text.toString()
-                            // 'contact':
-                          }
-                        };
-                        _razorpay.open(options);
+                        setState(() {
+                          isLoading = true;
+                        });
+                        ApiServices()
+                            .razorPayApi(widget.price, uniq.toString())
+                            .then((value) {
+                          var options = {
+                            'key': 'rzp_live_mpe84NF38NR7hD',
+                            'amount': widget.price * 100,
+                            'name': widget.productName,
+                            'order_id': value["body"]["id"],
+                            'reciept_id': value["body"]["reciept"],
+                            'prefill': {
+                              'email': FirebaseAuth.instance.currentUser?.email,
+                              'contact': _numController.text.toString()
+                              // 'contact':
+                            }
+                          };
+                          _razorpay.open(options);
+                        });
                       }
                     },
-                    child: const Text("Proceed to checkout"),
+                    child: isLoading
+                        ? const CircularProgressIndicator.adaptive()
+                        : const Text("Proceed to checkout"),
                   ),
                 ),
               ],

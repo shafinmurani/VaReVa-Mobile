@@ -21,9 +21,7 @@ class _OpenLibraryCategoryListState extends State<OpenLibraryCategoryList> {
         .get()
         .then((DocumentSnapshot ds) {
       for (var item in ds["list"]) {
-        setState(() {
           items.add(item);
-        });
       }
     });
 
